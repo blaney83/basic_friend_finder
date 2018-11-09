@@ -53,13 +53,13 @@ function apiRoutes(app) {
                     curHighCompatibility = currFriendScore;
                     friendIndex = friendNum;
                 };
-                //parse the scores that are currently stored as strings into numbers and change the actual array inside the req.body so that the posted data is changed
-                req.body.scores = req.body.scores.map(Number);
-                //then push the data to the db, but make sure this step is in the promise because otherwise the algorithm will return "you", the current user as the match becasue it push your info to the db before running the algorithm, thereby finding "yourself" as a perfect match (because all scores will match)
-                data.friends.push(req.body);
-
-                resolve("done")
             })
+            //parse the scores that are currently stored as strings into numbers and change the actual array inside the req.body so that the posted data is changed
+            req.body.scores = req.body.scores.map(Number);
+            //then push the data to the db, but make sure this step is in the promise because otherwise the algorithm will return "you", the current user as the match becasue it push your info to the db before running the algorithm, thereby finding "yourself" as a perfect match (because all scores will match)
+            data.friends.push(req.body);
+
+            resolve("done")
         })
 
         promise1.then(function (value) {
