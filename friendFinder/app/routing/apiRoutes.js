@@ -16,6 +16,9 @@ function apiRoutes(app) {
         //array to hold your newly submitted scores
         let scores = req.body.scores.map(Number);
 
+
+
+
         let promise1 = new Promise(function (resolve, reject) {
             //loop through all your potential best friends
             data.friends.forEach(function (obj, ind) {
@@ -44,12 +47,17 @@ function apiRoutes(app) {
                 }
                 //temporary viable that is eqyal to the sum of all composite compatibility scores
                 let currFriendScore = scoreAdder.reduce(getSum);
+                console.log("Your compatibility score with " + data.friends[friendNum].name + " is " + currFriendScore)
                 //if that temp variable is higher than the current running high, then we will set the running high to the new value and then set the current best friend index equal to the current potential friend object's index
                 if (currFriendScore > curHighCompatibility) {
                     curHighCompatibility = currFriendScore;
                     friendIndex = friendNum;
-                }
-                data.friends.push(req.body)
+                };
+                //parse the scores that are currently stored as strings into numbers and change the actual array inside the req.body so that the posted data is changed
+                req.body.scores = req.body.scores.map(Number);
+                //then push the data to the db, but make sure this step is in the promise because otherwise the algorithm will return "you", the current user as the match becasue it push your info to the db before running the algorithm, thereby finding "yourself" as a perfect match (because all scores will match)
+                data.friends.push(req.body);
+
                 resolve("done")
             })
         })
