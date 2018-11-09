@@ -2,9 +2,9 @@
 // Dependencies
 // =============================================================
 var express = require("express");
-var path = require("path");
-var data = require("./app/data/friends")
 let apiRoutes = require("./app/routing/apiRoutes")
+let htmlRoutes = require("./app/routing/htmlRoutes")
+
 
 // Sets up the Express App
 // =============================================================
@@ -15,26 +15,8 @@ var PORT = process.env.PORT || 8080;
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-app.get("/", function (req, res) {
-    res.sendFile(path.join(__dirname, "./app/public/home.html"));
-});
-
-app.get("/survey", function (req, res) {
-    res.sendFile(path.join(__dirname, "./app/public/survey.html"));
-});
-
-app.get("/survey", function (req, res) {
-    res.sendFile(path.join(__dirname, "./app/public/script.js"));
-});
-
 apiRoutes.apiRoutes(app);
-
-// app.get("/api/friends", function (req, res) {
-//     console.log("listening at get")
-//     return res.json(data);
-// });
-
-// apiRoutes;
+htmlRoutes.htmlRoutes(app);
 
 // Starts the server to begin listening
 // =============================================================

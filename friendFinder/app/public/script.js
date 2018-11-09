@@ -1,5 +1,4 @@
 
-
 var config = {
     ".chosen-select": {},
     ".chosen-select-deselect": {
@@ -15,7 +14,6 @@ var config = {
         width: "95%"
     }
 };
-
 
 for (var selector in config) {
     $(selector).chosen(config[selector]);
